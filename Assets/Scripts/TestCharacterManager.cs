@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class TestCharacterManager : MonoBehaviour
 {
-    public Character SDMonk;
+    public Character Monk;
 
     // Start is called before the first frame update
     void Start()
     {
-        SDMonk = CharacterManager.instance.GetCharacter("SD-Monk");
+        Monk = CharacterManager.instance.GetCharacter("Monk");
     }
 
     public string[] speech;
@@ -22,7 +22,7 @@ public class TestCharacterManager : MonoBehaviour
         {
             if (i<speech.Length)
             {
-                SDMonk.Say(speech[i]);
+                Monk.Say(speech[i]);
                 i++;
             } else {
                 DialogueSystem.instance.Close(); //close and hide itself.

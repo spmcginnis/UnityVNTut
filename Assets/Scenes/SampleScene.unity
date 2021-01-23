@@ -1432,7 +1432,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1729968540}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1bdadf9168b92df438e62b3a97835075, type: 3}
   m_Name: 
@@ -1467,9 +1467,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4e2c8f9d113c6042a2e5dd4b23cce79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SDMonk:
+  Monk:
     characterName: 
     root: {fileID: 0}
+    renderers:
+      bodyRenderer: {fileID: 0}
+      faceRenderer: {fileID: 0}
+  speech:
+  - Heya, I'm Monk!
+  - I'm a monk!
+  - And my name is also Monk!
+  - My parents aren't very original.
+  - And everyone says I'm an oversharer.
+  - Um.... err... nice to meet you?!
 --- !u!1 &2053270390
 GameObject:
   m_ObjectHideFlags: 0

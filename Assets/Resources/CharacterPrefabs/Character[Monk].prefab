@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5687151649123034119}
   - component: {fileID: 5687151649123034121}
   m_Layer: 5
-  m_Name: Character[SD-Monk]
+  m_Name: Character[Monk]
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
