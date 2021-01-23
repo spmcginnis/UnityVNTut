@@ -23,8 +23,9 @@ public class TestCharacterManager : MonoBehaviour
             if (i<speech.Length)
             {
                 SDMonk.Say(speech[i]);
-            } else { 
-                // DialogueSystem.instance //close and hide itself.
+                i++;
+            } else {
+                DialogueSystem.instance.Close(); //close and hide itself.
             }
             
         }
