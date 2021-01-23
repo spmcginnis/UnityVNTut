@@ -27,7 +27,7 @@ public class CharacterManager : MonoBehaviour
     /// <summary>
     /// Return an instance of a desired char
     /// </summary>
-    public Character GetCharacter(string characterName, bool shouldCreateNewCharacter = true)
+    public Character GetCharacter(string characterName, bool shouldCreateNewCharacter = true, bool enableNewCharacterOnStart = true)
     {
         int index = -1; // a temporary storage integer
 
@@ -36,7 +36,7 @@ public class CharacterManager : MonoBehaviour
         {
             return characters[index];
         } else if (shouldCreateNewCharacter) {
-            return CreateNewCharacter(characterName);
+            return CreateNewCharacter(characterName, enableNewCharacterOnStart);
         }
 
         return null;
@@ -47,9 +47,9 @@ public class CharacterManager : MonoBehaviour
     /// </summary>
     /// <param name="characterName"></param>
     /// <returns></returns>
-    public Character CreateNewCharacter(string characterName)
+    public Character CreateNewCharacter(string characterName, bool enabledOnStart = true)
     {
-        Character newCharacter = new Character(characterName);
+        Character newCharacter = new Character(characterName, enabledOnStart);
 
         characterDictionary.Add(characterName, characters.Count);
         characters.Add(newCharacter);

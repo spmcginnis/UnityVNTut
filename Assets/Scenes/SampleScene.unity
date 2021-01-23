@@ -1480,6 +1480,11 @@ MonoBehaviour:
   - My parents aren't very original.
   - And everyone says I'm an oversharer.
   - Um.... err... nice to meet you?!
+  positionA: {x: -2, y: 0}
+  positionB: {x: 0.5, y: 0}
+  positionC: {x: 3, y: 0}
+  moveSpeed: 1
+  smooth: 1
 --- !u!1 &2053270390
 GameObject:
   m_ObjectHideFlags: 0
