@@ -38,7 +38,7 @@ public class Character
         set { root.gameObject.SetActive(value); }
     }
 
-
+    // Initialize Character Object Instance -------------------------------------------------------------------------------------
     public Character (string _name, bool enabledOnStart = true)
     {
         CharacterManager CM = CharacterManager.instance;
@@ -52,11 +52,16 @@ public class Character
         root = ob.GetComponent<RectTransform>();
         characterName = _name;
 
-        //get the renderers 
-        // if(isMultiLayerCharacter) ...
+        // Set the renderers 
+        // if(isMultiLayerCharacter) ... // needed if mixing single- and multiple-image types
 
-        renderers.bodyRenderer = ob.transform.Find("RenderBody").GetComponent<Image>();
-        renderers.faceRenderer = ob.transform.Find("RenderFace").GetComponent<Image>();
+        renderers.bodyRenderer = ob.transform.Find("RenderBody").GetComponentInChildren<Image>();
+        renderers.faceRenderer = ob.transform.Find("RenderFace").GetComponentInChildren<Image>();
+        
+        // Add the renderers to the lists of renderers
+        renderers.allBodyRenderers.Add(renderers.bodyRenderer);
+        renderers.allFaceRenderers.Add(renderers.faceRenderer);
+
 
         dialogue = DialogueSystem.instance;
 
@@ -128,6 +133,144 @@ public class Character
     }
 
 
+    // SECTION: Image Transitions ---------------------------------------------------
+    public Sprite GetSprite(int i = 0)
+    {
+        Sprite[] sprites = Resources.LoadAll<Sprite>($"Images/CharacterSprites/SD-Monk/{characterName}");
+
+        Debug.Log(sprites.Length);
+        
+        return sprites[i];
+    }
+
+    public void SetBody(int i)
+    {
+        renderers.bodyRenderer.sprite = GetSprite(i);
+    }
+    public void SetBody(Sprite body)
+    {
+        renderers.bodyRenderer.sprite = body;
+    }
+    public void SetFace(int i)
+    {
+        renderers.faceRenderer.sprite = GetSprite(i);
+    }
+    public void SetFace(Sprite face)
+    {
+        renderers.faceRenderer.sprite = face;
+    }
+
+    // Body Transition Coroutine Handling:
+        // A) bool to register coroutine status.
+        // B) initialized coroutine set to null.
+        // C) Function to start coroutine.
+        // D) Function to stop coroutine.
+        // E) IEnumerator to...
+        // Note: Because the Character class does not extend MonoBehavior, it cannot itself run or stop a coroutine, so we use a class that can, in this case, CharacterManager.
+    bool isBodyTransitioning { get { return bodyTransition != null; } } //returns true if the coroutine is not null, that is, if the coroutine is running.
+    Coroutine bodyTransition = null; // initialize coroutine and set to null
+
+    public void StartBodyTransition(Sprite sprite, float speed, bool smooth)
+    {
+        if (renderers.bodyRenderer.sprite == sprite) { return; } // Escape the function if the new sprite is the same as the current one.
+        StopBodyTransition(); // stop any current transition before starting a new one
+        bodyTransition = CharacterManager.instance.StartCoroutine(BodyTransition(sprite, speed, smooth)); // Calls the IEnumerator and passes the parameter set.
+    }
+
+    void StopBodyTransition()
+    {
+        if (isBodyTransitioning)
+        {
+            CharacterManager.instance.StopCoroutine(bodyTransition);
+        }
+    }
+
+    public IEnumerator BodyTransition (Sprite sprite, float speed, bool smooth)
+    {
+        foreach (Image renderer in renderers.allBodyRenderers) // Check the list of renderers for the one we are looking for
+        {
+            if (renderer.sprite == sprite) // If the current renderer has the same sprite as our target sprite, then we set it active and break the loop.
+            {
+                renderers.bodyRenderer = renderer;
+                break;
+            }
+        }
+
+        if (renderers.bodyRenderer.sprite != sprite) // if the bodyRenderer does not reference our sprite, then we know a suitable target was not found in the list and we need to create one.
+        {
+            Image image = GameObject
+                .Instantiate (renderers.bodyRenderer.gameObject, renderers.bodyRenderer.transform.parent)
+                .GetComponent<Image>();
+            renderers.allBodyRenderers.Add(image); // adds the new image to the list
+            renderers.bodyRenderer = image; // makes the image active
+            image.color = GlobalFunctions.SetAlpha(image.color, 0f); //Sets alpha to zero to start.
+            image.sprite = sprite; // Sets the image to use the new sprite
+
+
+        }
+
+        while (GlobalFunctions.TransitionImage(ref renderers.bodyRenderer, ref renderers.allBodyRenderers, speed, smooth))
+        {
+            yield return new WaitForEndOfFrame();
+        }
+
+        StopBodyTransition();
+
+    }
+
+    // Face Transition Coroutine Handling
+    bool isFaceTransitioning { get { return faceTransition != null; } } //returns true if the coroutine is not null, that is, if the coroutine is running.
+    Coroutine faceTransition = null; // initialize coroutine and set to null
+
+    public void StartFaceTransition(Sprite sprite, float speed, bool smooth)
+    {
+        if (renderers.faceRenderer.sprite == sprite) { return; } // Escape the function if the new sprite is the same as the current one.
+        StopFaceTransition(); // stop any current transition before starting a new one
+        faceTransition = CharacterManager.instance.StartCoroutine(FaceTransition(sprite, speed, smooth)); // Calls the IEnumerator and passes the parameter set.
+    }
+
+    void StopFaceTransition()
+    {
+        if (isFaceTransitioning)
+        {
+            CharacterManager.instance.StopCoroutine(faceTransition);
+        }
+    }
+
+    public IEnumerator FaceTransition(Sprite sprite, float speed, bool smooth)
+    {
+        foreach (Image renderer in renderers.allFaceRenderers) // Check the list of renderers for the one we are looking for
+        {
+            if (renderer.sprite == sprite) // If the current renderer has the same sprite as our target sprite, then we set it active and break the loop.
+            {
+                renderers.faceRenderer = renderer;
+                break;
+            }
+        }
+
+        if (renderers.faceRenderer.sprite != sprite) // if the bodyRenderer does not reference our sprite, then we know a suitable target was not found in the list and we need to create one.
+        {
+            Image image = GameObject
+                .Instantiate(renderers.faceRenderer.gameObject, renderers.faceRenderer.transform.parent)
+                .GetComponent<Image>();
+            renderers.allFaceRenderers.Add(image); // adds the new image to the list
+            renderers.faceRenderer = image; // makes the image active
+            image.color = GlobalFunctions.SetAlpha(image.color, 0f); //Sets alpha to zero to start.
+            image.sprite = sprite; // Sets the image to use the new sprite
+
+
+        }
+
+        while (GlobalFunctions.TransitionImage(ref renderers.faceRenderer, ref renderers.allFaceRenderers, speed, smooth))
+        {
+            yield return new WaitForEndOfFrame();
+        }
+
+        StopFaceTransition();
+
+    }
+
+
 
     [System.Serializable]
     public class Renderers
@@ -138,6 +281,10 @@ public class Character
         //Image used for sprites and multi-layer sprites.
         public Image bodyRenderer;
         public Image faceRenderer;
+
+        // More renderers for image transitions
+        public List<Image> allBodyRenderers = new List<Image>();
+        public List<Image> allFaceRenderers = new List<Image>();
     }
 
     public Renderers renderers = new Renderers(); // create an instance of the Renderers class
