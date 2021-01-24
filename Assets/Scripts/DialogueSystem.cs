@@ -18,17 +18,6 @@ public class DialogueSystem : MonoBehaviour
         instance = this;
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     /// <summary>
     /// Say something and print it on the screen.
@@ -57,6 +46,10 @@ public class DialogueSystem : MonoBehaviour
             StopCoroutine(speaking);
             
         }
+        if (builder != null && builder.isBuilding)
+        {
+            builder.Stop();
+        }
         speaking = null;
     }
 
@@ -68,28 +61,33 @@ public class DialogueSystem : MonoBehaviour
 
     string targetSpeech = "";
     Coroutine speaking = null;
+    TextBuilder builder = null;
+
     IEnumerator Speaking(string speech, bool additive = false, string speaker = "")
     {
         speechPanel.SetActive(true);
-        targetSpeech = speech;
-
-        if (!additive)
-        {
-            speechText.text = "";
-        } else {
-            targetSpeech = speechText.text + targetSpeech;
-        }
-
         
+        string previousText = additive ? speechText.text : "";
+        targetSpeech = previousText + speech;
+
+        builder = new TextBuilder(speech, previousText);
+
         speakerNameText.text = DetermineSpeaker(speaker);
         isWaitingForUserInput = false;
 
         // Output one character at a time
-        while(speechText.text != targetSpeech)
+        while(builder.isBuilding)
         {
-            speechText.text += targetSpeech[speechText.text.Length];
+            if (Input.GetKey(KeyCode.Space))
+            {
+                builder.skip = true;
+            }
+
+            speechText.text = builder.currentText;
+
             yield return new WaitForEndOfFrame();
         }
+        speechText.text = builder.currentText;
 
         isWaitingForUserInput = true;
         while(isWaitingForUserInput) // Tut omitted the curly braces here, but that seems off to me.  
