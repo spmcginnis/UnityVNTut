@@ -1844,6 +1844,14 @@ MonoBehaviour:
       faceRenderer: {fileID: 0}
       allBodyRenderers: []
       allFaceRenderers: []
+  Muriel:
+    characterName: 
+    root: {fileID: 0}
+    renderers:
+      bodyRenderer: {fileID: 0}
+      faceRenderer: {fileID: 0}
+      allBodyRenderers: []
+      allFaceRenderers: []
   speech:
   - Heya, I'm <color=blue><b>Monk</b></color>!
   - I'm a monk!
@@ -1861,6 +1869,12 @@ MonoBehaviour:
   faceSpriteIndex: 0
   transitionSpeed: 1
   smoothTransition: 0
+  murielIntro:
+  - Well, hello, little cricket.
+  - I have an exciting new job for my favorite sneakthief.
+  - But it makes me sad.
+  - Because it will be the last one for a long time.
+  - But don't worry, my little cricket, I'm sure you're up to the task.
 --- !u!1 &1749330445
 GameObject:
   m_ObjectHideFlags: 0

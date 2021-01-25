@@ -136,13 +136,24 @@ public class Character
     // SECTION: Image Transitions ---------------------------------------------------
     public Sprite GetSprite(int i = 0)
     {
-        Sprite[] sprites = Resources.LoadAll<Sprite>($"Images/CharacterSprites/SD-Monk/{characterName}");
+        Sprite[] sprites = Resources.LoadAll<Sprite>($"Images/CharacterSprites/{characterName}/{characterName}");
 
         Debug.Log(sprites.Length);
         
         return sprites[i];
     }
 
+    public Sprite GetSprite(string charName, int i = 0)
+    {
+        Sprite[] sprites = Resources.LoadAll<Sprite>($"Images/CharacterSprites/{characterName}");
+
+        Debug.Log(sprites.Length);
+        
+        return sprites[i];
+    }
+
+
+    // Setting manually (by index).  Depricated in favor of transitions
     public void SetBody(int i)
     {
         renderers.bodyRenderer.sprite = GetSprite(i);

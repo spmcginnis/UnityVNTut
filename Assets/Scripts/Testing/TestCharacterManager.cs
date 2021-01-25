@@ -5,19 +5,13 @@ using UnityEngine;
 public class TestCharacterManager : MonoBehaviour
 {
     public Character Monk;
+    public Character Muriel;
+    
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        // Create a character instance
-        Monk = CharacterManager.instance.GetCharacter("Monk", enableNewCharacterOnStart: false);
-        Monk.GetSprite(4);
-
-    }
 
     public string[] speech;
     int i = 0;
-
+    int j = 0;
 
     // SECTION: Testing the character movements
     public Vector2 positionA = new Vector2(-2, 0);
@@ -34,11 +28,51 @@ public class TestCharacterManager : MonoBehaviour
     public float transitionSpeed = 2f;
     public bool smoothTransition = true;
 
+    // SECTION: Testing Muriel
+    public string[] murielIntro;
 
+        // Start is called before the first frame update
+    void Start()
+    {
+        // Create a character instance
+        Monk = CharacterManager.instance.GetCharacter("Monk", enableNewCharacterOnStart: false);
+        Monk.GetSprite(4);
+
+        Muriel = CharacterManager.instance.GetCharacter("Muriel", enableNewCharacterOnStart: false);
+
+    }
 
     // Update is called once per frame
     void Update()
     {
+        // Testing Muriel
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            if (j < murielIntro.Length)
+            {
+                if (!Muriel.isEnabled)
+                {
+                    Muriel.MoveTo(positionA, 100);
+                    Muriel.isEnabled = true;
+                    Muriel.MoveTo(positionB, moveSpeed, smooth);
+                }
+
+                
+
+                if (j == 2)
+                {
+                    Muriel.StartFaceTransition(Muriel.GetSprite("Muriel", 1), transitionSpeed, smoothTransition);
+                }
+                else
+                {
+                    Muriel.StartFaceTransition(Muriel.GetSprite("Muriel", 2), transitionSpeed, smoothTransition);
+                }
+
+                Muriel.Say(murielIntro[j]);
+                j++;
+            }
+        }
+
         // Speech Handler
         if (Input.GetKeyDown(KeyCode.Space))
         {
