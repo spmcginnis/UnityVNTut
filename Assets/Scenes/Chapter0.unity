@@ -140,7 +140,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &9914102
 RectTransform:
   m_ObjectHideFlags: 0
@@ -577,7 +577,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &359063929
 RectTransform:
   m_ObjectHideFlags: 0
@@ -707,7 +707,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Speaker Name
+  m_Text: 
 --- !u!222 &501207206
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -885,7 +885,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Dialogue text goes here ...
+  m_Text: 
 --- !u!222 &601488221
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -926,7 +926,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &612634146
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1852,6 +1852,14 @@ MonoBehaviour:
       faceRenderer: {fileID: 0}
       allBodyRenderers: []
       allFaceRenderers: []
+  Rem:
+    characterName: 
+    root: {fileID: 0}
+    renderers:
+      bodyRenderer: {fileID: 0}
+      faceRenderer: {fileID: 0}
+      allBodyRenderers: []
+      allFaceRenderers: []
   speech:
   - Heya, I'm <color=blue><b>Monk</b></color>!
   - I'm a monk!
@@ -1862,7 +1870,7 @@ MonoBehaviour:
   positionA: {x: -2, y: 0}
   positionB: {x: 0.5, y: 0}
   positionC: {x: 3, y: 0}
-  moveSpeed: 1
+  moveSpeed: 2
   smooth: 1
   endScene: 0
   bodySpriteIndex: 0
@@ -1875,6 +1883,13 @@ MonoBehaviour:
   - But it makes me sad.
   - Because it will be the last one for a long time.
   - But don't worry, my little cricket, I'm sure you're up to the task.
+  remIntro:
+  - Hello, Mr. Trace.
+  - I've missed you.
+  - I hear you are duoing with my dear friend Gyro.
+  - He's great!  I hope you get to plat.
+  - If you don't, my lovely sister will be very disappointed.
+  - Okay, well, bye!
 --- !u!1 &1749330445
 GameObject:
   m_ObjectHideFlags: 0
