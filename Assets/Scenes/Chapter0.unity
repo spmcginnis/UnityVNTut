@@ -1757,7 +1757,8 @@ GameObject:
   - component: {fileID: 1729968545}
   - component: {fileID: 1729968542}
   - component: {fileID: 1729968544}
-  m_Layer: 0
+  - component: {fileID: 1729968546}
+  m_Layer: 8
   m_Name: TestingScripts
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1787,7 +1788,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1729968540}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0bbb31c1dce18264f9ce65d6eb613f45, type: 3}
   m_Name: 
@@ -1890,6 +1891,20 @@ MonoBehaviour:
   - He's great!  I hope you get to plat.
   - If you don't, my lovely sister will be very disappointed.
   - Okay, well, bye!
+--- !u!114 &1729968546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1729968540}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1965b4bff2952a4a9784f54084f0af1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lineColor: {r: 1, g: 1, b: 1, a: 1}
+  material: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!1 &1749330445
 GameObject:
   m_ObjectHideFlags: 0
@@ -1900,6 +1915,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1749330446}
   - component: {fileID: 1749330447}
+  - component: {fileID: 1749330448}
   m_Layer: 5
   m_Name: ForeGroundPanel
   m_TagString: Untagged
@@ -1935,6 +1951,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1749330445}
   m_CullTransparentMesh: 0
+--- !u!114 &1749330448
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1749330445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1965b4bff2952a4a9784f54084f0af1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lineColor: {r: 1, g: 1, b: 1, a: 1}
+  material: {fileID: 0}
 --- !u!1 &2053270390
 GameObject:
   m_ObjectHideFlags: 0
