@@ -44,7 +44,7 @@ public class Character
         CharacterManager CM = CharacterManager.instance;
 
         // locate the prefab
-        GameObject prefab = Resources.Load($"CharacterPrefabs/Character[{_name}]") as GameObject;
+        GameObject prefab = Resources.Load($"Prefabs/CharacterPrefabs/Character[{_name}]") as GameObject;
         
         //instantiate the prefab into the scene, directly on the character panel
         GameObject ob = GameObject.Instantiate(prefab, CM.characterPanel);
