@@ -12,7 +12,6 @@ public class ImageController : MonoBehaviour
     public LAYER cinematic = new LAYER();
     public LAYER foreground = new LAYER();
 
-    // Start is called before the first frame update
     void Awake()
     {
         instance = this;
@@ -56,7 +55,7 @@ public class ImageController : MonoBehaviour
 
         void CreateNewActiveImage()
         {
-            GameObject ob = Instantiate(newImageObjectReference, root.transform) as GameObject;
+            GameObject ob = Instantiate(newImageObjectReference, root.transform) as GameObject; // creates a clone of the image object with parent: root.transform
             ob.SetActive(true);
             RawImage raw = ob.GetComponent<RawImage>();
             activeImage = raw; // set the image as the active image
